@@ -1,0 +1,167 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /warehouse:
+    get:
+      operationId: warehouse.read_all
+      tags:
+        - Warehouse
+      summary: Read Entire warehouse data 
+      description: Read Entire warehouse data 
+      responses:
+        200:
+          description: Successfully read warehouse set operation
+          schema:
+            type: array
+            items:
+              properties:
+                warehouse_id:
+                  type: string
+                  description: Id of the warehouse
+                food_name:
+                  type: string
+                  description: First name of the warehouse
+                food_type:
+                  type: string
+                  description: Last name of the warehouse
+                timestamp:
+                  type: string
+                  description: Creation/Update timestamp of the warehouse
+
+    post:
+      operationId: warehouse.create
+      tags:
+        - Warehouse
+      summary: Create a warehouse
+      description: Create a new warehouse
+      parameters:
+        - name: warehouse
+          in: body
+          description: warehouse to create
+          required: True
+          schema:
+            type: object
+            properties:
+              food_name:
+                type: string
+                description: First name of warehouse to create
+              food_type:
+                type: string
+                description: Last name of warehouse to create
+      responses:
+        201:
+          description: Successfully created warehouse
+          schema:
+            properties:
+              warehouse_id:
+                type: string
+                description: Id of the warehouse
+              food_name:
+                type: string
+                description: First name of the warehouse
+              food_type:
+                type: string
+                description: Last name of the warehouse
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the warehouse record
+
+  /warehouse/{warehouse_id}:
+    get:
+      operationId: warehouse.read_one
+      tags:
+        - Warehouse
+      summary: Read one warehouse
+      description: Read one warehouse
+      parameters:
+        - name: warehouse_id
+          in: path
+          description: Id of the warehouse to get
+          type: integer
+          required: True
+      responses:
+        200:
+          description: Successfully read warehouse from warehouse data operation
+          schema:
+            type: object
+            properties:
+              warehouse_id:
+                type: string
+                description: Id of the warehouse
+              food_name:
+                type: string
+                description: First name of the warehouse
+              food_type:
+                type: string
+                description: Last name of the warehouse
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the warehouse record
+
+    put:
+      operationId: warehouse.update
+      tags:
+        - Warehouse
+      summary: Update a warehouse
+      description: Update a warehouse
+      parameters:
+        - name: warehouse_id
+          in: path
+          description: Id the warehouse to update
+          type: integer
+          required: True
+        - name: warehouse
+          in: body
+          schema:
+            type: object
+            properties:
+              food_name:
+                type: string
+                description: First name of the warehouse
+              food_type:
+                type: string
+                description: Last name of the warehouse
+      responses:
+        200:
+          description: Successfully updated warehouse
+          schema:
+            properties:
+              warehouse_id:
+                type: string
+                description: Id of the warehouse in the database
+              food_name:
+                type: string
+                description: First name of the warehouse
+              food_type:
+                type: string
+                description: Last name of the warehouse
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the warehouse record
+
+    delete:
+      operationId: warehouse.delete
+      tags:
+        - Warehouse
+      summary: Delete a warehouse from the warehouse list
+      description: Delete a warehouse
+      parameters:
+        - name: warehouse_id
+          in: path
+          type: integer
+          description: Id of the warehouse to delete
+          required: true
+      responses:
+        200:
+          description: Successfully deleted a warehouse
